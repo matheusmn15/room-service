@@ -7,10 +7,12 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomRequest {
+public class RoomDtoResponse {
 
+    private Long id;
     private String roomNumber;
     private String roomType;
     private Integer capacity;
     private Double pricePerNight;
+    private Boolean available;
 }

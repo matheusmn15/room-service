@@ -3,13 +3,13 @@ package br.com.matheusmn.room_service.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "tbRoom")
+@Entity
+@Table(name = "tb_room")
 public class Room {
 
     @Id
