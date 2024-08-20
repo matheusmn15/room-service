@@ -3,6 +3,7 @@ package br.com.matheusmn.room_service.service;
 import br.com.matheusmn.room_service.domain.dto.RoomDtoRequest;
 import br.com.matheusmn.room_service.domain.dto.RoomDtoResponse;
 import br.com.matheusmn.room_service.domain.entity.Room;
+import br.com.matheusmn.room_service.excepition.ExceptionMessageUtils;
 import br.com.matheusmn.room_service.repository.RoomRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void updateRoom(Long id, RoomDtoRequest request) {
-        var room = repository.findById(id).get();
+        var room = repository.findById(id).orElseThrow(() -> ExceptionMessageUtils.roomNotFoundException(id));
         room.setRoomType(request.getRoomType());
         room.setCapacity(request.getCapacity());
         room.setPricePerNight(request.getPricePerNight());
@@ -42,7 +43,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void deleteRoom(Long id) {
-        var room = repository.findById(id).get();
+        var room = repository.findById(id).orElseThrow(() -> ExceptionMessageUtils.roomNotFoundException(id));
         repository.delete(room);
     }
 
@@ -61,8 +62,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public RoomDtoResponse getRoomDetails(Long roomId) {
-        var room = repository.findById(roomId).get();
-        //                .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + roomId));
+        var room = repository.findById(roomId).orElseThrow(() -> ExceptionMessageUtils.roomNotFoundException(roomId));
         return new RoomDtoResponse(
                 room.getId(),
                 room.getRoomNumber(),
