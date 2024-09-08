@@ -78,8 +78,4 @@ public class RoomController {
         return service.listAvailableRooms();
     }
 
-    //    @GetMapping
-    //    String get(){
-    //        return "Hello world";
-    //    }
 }
