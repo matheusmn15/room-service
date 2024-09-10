@@ -10,4 +10,8 @@ public class ExceptionMessageUtils {
         var message = String.format("Room with id {%s} do not exist in database.", id);
         return new NotFoundException(title, message);
     }
+
+    public static RoomNotAvailableException roomNotAvailableException() {
+        return new RoomNotAvailableException("Quarto não disponível para as datas selecionadas.");
+    }
 }

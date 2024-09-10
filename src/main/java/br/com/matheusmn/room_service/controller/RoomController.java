@@ -1,7 +1,9 @@
 package br.com.matheusmn.room_service.controller;
 
+import br.com.matheusmn.room_service.domain.dto.ReservationRequest;
 import br.com.matheusmn.room_service.domain.dto.RoomDtoRequest;
 import br.com.matheusmn.room_service.domain.dto.RoomDtoResponse;
+import br.com.matheusmn.room_service.excepition.RoomNotAvailableException;
 import br.com.matheusmn.room_service.service.RoomService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,6 +12,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Room endpoint")
@@ -78,4 +81,11 @@ public class RoomController {
         return service.listAvailableRooms();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/reserve")
+    public ResponseEntity<String> reserveRoom(@RequestBody ReservationRequest reservationRequest)
+            throws RoomNotAvailableException {
+        String reservationId = service.reserveRoom(reservationRequest);
+        return ResponseEntity.ok("Reserva realizada com sucesso! ID da reserva: " + reservationId);
+    }
 }
